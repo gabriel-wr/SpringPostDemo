@@ -18,6 +18,28 @@ class TestPostControllerDiffblueTest {
        private TestPostController testPostController;
 
        /**
+        * Test {@link TestPostController#coverTest(int, String)}.
+        * <p>
+        * Method under test: {@link TestPostController#coverTest(int, String)}
+        */
+       @Test
+       @DisplayName("Test coverTest(int, String)")
+       void testCoverTest() throws Exception {
+              // Arrange
+              MockHttpServletRequestBuilder postResult = MockMvcRequestBuilders.post("/coverTest");
+              MockHttpServletRequestBuilder requestBuilder = postResult.param("numberOfTests", String.valueOf(1))
+                      .param("testType", "foo");
+
+              // Act and Assert
+              MockMvcBuilders.standaloneSetup(testPostController)
+                      .build()
+                      .perform(requestBuilder)
+                      .andExpect(MockMvcResultMatchers.status().isOk())
+                      .andExpect(MockMvcResultMatchers.content().contentType("text/plain;charset=ISO-8859-1"))
+                      .andExpect(MockMvcResultMatchers.content().string("Cover test post called"));
+       }
+
+       /**
         * Test {@link TestPostController#test()}.
         * <p>
         * Method under test: {@link TestPostController#test()}
